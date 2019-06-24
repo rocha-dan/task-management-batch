@@ -3,7 +3,7 @@ package br.com.rocha.dan.task.job.schedule;
 import java.util.Date;
 
 import br.com.rocha.dan.task.job.document.TaskDocument;
-import br.com.rocha.dan.task.job.processor.OrderProcessor;
+import br.com.rocha.dan.task.job.processor.TaskProcessor;
 import br.com.rocha.dan.task.job.reader.TaskReader;
 import org.apache.log4j.Logger;
 import org.springframework.batch.core.Job;
@@ -45,7 +45,7 @@ public class TaskJobSchedule {
 	private JobBuilderFactory jobBuilderFactory;
 
     @Autowired
-    private OrderProcessor orderProcessor;
+    private TaskProcessor orderProcessor;
     
 	@Autowired
 	private TaskReader fraudScreeningReader;
@@ -53,10 +53,10 @@ public class TaskJobSchedule {
 	@Autowired
 	private TaskWriter fraudScreeningWriter;
 	
-	@Value("${fraud.screening.batch.chunck}")
+	@Value("${task.batch.chunck}")
 	private int totalChunk;
 	
-	@Scheduled(fixedDelayString = "${fraud.screening.pull.update.schedule.delay}")
+	@Scheduled(fixedDelayString = "${task.pull.update.schedule.delay}")
 	public void run() throws Exception {
 				
 		try {

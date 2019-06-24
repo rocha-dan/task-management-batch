@@ -1,5 +1,6 @@
 package br.com.rocha.dan.task.job.reader;
 
+import br.com.rocha.dan.task.job.document.TaskDocument;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.data.MongoItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
-import br.com.rocha.dan.task.job.document.TaskDocument;
-
 @Component
 public class TaskReader {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-	@Value("${collection.order.screening:OrderScreening}")
+	@Value("${collection.task}")
     private String collection;
 		
 	@Bean
@@ -27,7 +26,11 @@ public class TaskReader {
 		reader.setTemplate(mongoTemplate);
 		reader.setTargetType(TaskDocument.class);
 		reader.setCollection(collection);
-		reader.setQuery("{systemResponse: 'INVESTIGATE' }");
+
+//		List<Object> param = new ArrayList<Object>();
+//		param.add(LocalDateTime.now());
+//		reader.setParameterValues(param);
+		reader.setQuery("{}");
 
  		return reader;
 	  }

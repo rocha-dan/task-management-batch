@@ -9,18 +9,16 @@ import br.com.rocha.dan.task.job.document.TaskDocument;
 
 @StepScope
 @Component
-public class OrderProcessor implements ItemProcessor<TaskDocument, TaskDocument> {
+public class TaskProcessor implements ItemProcessor<TaskDocument, TaskDocument> {
 
-	private static final Logger log = Logger.getLogger(OrderProcessor.class);
-	private static final String ORGCODE = "SERASA01";
-	private static final String DOCUMENTBASE = "LOJACS";
+	private static final Logger log = Logger.getLogger(TaskProcessor.class);
 
 	@Override
 	public TaskDocument process(TaskDocument orderDocument) throws Exception {
 		
 		log.info("Start Process Method");
 
-		//PullUpdateRequest pullUpdate = new PullUpdateRequest(DOCUMENTBASE, ORGCODE);
+		//logic
 
 		log.info("Finish Process Method");
 

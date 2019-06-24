@@ -34,7 +34,7 @@ public class BatchConfiguration {
 	@Autowired
 	private TaskWriter writer;
 	
-	@Value("${fraud.screening.batch.chunck}")
+	@Value("${task.batch.chunck}")
 	private int totalChunk;
 
 	@Bean
