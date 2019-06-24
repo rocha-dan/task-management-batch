@@ -56,7 +56,7 @@ public class TaskJobSchedule {
 	@Value("${task.batch.chunck}")
 	private int totalChunk;
 	
-	@Scheduled(fixedDelayString = "${task.pull.update.schedule.delay}")
+	@Scheduled(cron = "${cron}")
 	public void run() throws Exception {
 				
 		try {
