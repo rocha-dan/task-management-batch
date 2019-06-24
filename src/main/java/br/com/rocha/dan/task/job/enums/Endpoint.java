@@ -6,8 +6,8 @@ import java.text.MessageFormat;
 
 public enum Endpoint {
 
-	ORDER_SCREENINGS_PULL_UPDATE("/order-screenings/pull-update"),
-	IAM_CLIENT_IDENTITIES("/client-identities/identify?clientId={0}");
+
+	TESTE("/teste");
 
 	private String path;
 	

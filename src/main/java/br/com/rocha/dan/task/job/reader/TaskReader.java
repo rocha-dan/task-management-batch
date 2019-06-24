@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
-import br.com.rocha.dan.task.job.document.OrderDocument;
+import br.com.rocha.dan.task.job.document.TaskDocument;
 
 @Component
-public class FraudScreeningReader {
+public class TaskReader {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
@@ -21,11 +21,11 @@ public class FraudScreeningReader {
 		
 	@Bean
 	@StepScope
-	  public MongoItemReader<OrderDocument> reader() {
+	  public MongoItemReader<TaskDocument> reader() {
 	
-		MongoItemReader<OrderDocument> reader = new MongoItemReader();
+		MongoItemReader<TaskDocument> reader = new MongoItemReader();
 		reader.setTemplate(mongoTemplate);
-		reader.setTargetType(OrderDocument.class);
+		reader.setTargetType(TaskDocument.class);
 		reader.setCollection(collection);
 		reader.setQuery("{systemResponse: 'INVESTIGATE' }");
 

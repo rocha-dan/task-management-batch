@@ -2,9 +2,9 @@ package br.com.rocha.dan.task.job.schedule;
 
 import java.util.Date;
 
-import br.com.rocha.dan.task.job.document.OrderDocument;
+import br.com.rocha.dan.task.job.document.TaskDocument;
 import br.com.rocha.dan.task.job.processor.OrderProcessor;
-import br.com.rocha.dan.task.job.reader.FraudScreeningReader;
+import br.com.rocha.dan.task.job.reader.TaskReader;
 import org.apache.log4j.Logger;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -22,14 +22,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import br.com.rocha.dan.task.job.writer.FraudScreeningWriter;
+import br.com.rocha.dan.task.job.writer.TaskWriter;
 
 @EnableScheduling
 @Configuration
 @EnableBatchProcessing
-public class FraudScreeningJobSchedule {
+public class TaskJobSchedule {
 	
-	private static final Logger log = Logger.getLogger(FraudScreeningJobSchedule.class);
+	private static final Logger log = Logger.getLogger(TaskJobSchedule.class);
 	
 	@Autowired
     private JobLauncher jobLauncher;
@@ -48,10 +48,10 @@ public class FraudScreeningJobSchedule {
     private OrderProcessor orderProcessor;
     
 	@Autowired
-	private FraudScreeningReader fraudScreeningReader;
+	private TaskReader fraudScreeningReader;
 
 	@Autowired
-	private FraudScreeningWriter fraudScreeningWriter;
+	private TaskWriter fraudScreeningWriter;
 	
 	@Value("${fraud.screening.batch.chunck}")
 	private int totalChunk;
@@ -68,7 +68,7 @@ public class FraudScreeningJobSchedule {
             JobParameters param = new JobParametersBuilder().addString("date", dateParam).toJobParameters();
             
             Step step = stepBuilderFactory.get("step1")
-    				.<OrderDocument, OrderDocument>chunk(totalChunk)
+    				.<TaskDocument, TaskDocument>chunk(totalChunk)
     				.reader(fraudScreeningReader.reader())
     				.processor(orderProcessor)
     				.writer(fraudScreeningWriter)

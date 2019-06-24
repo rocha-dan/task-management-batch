@@ -2,7 +2,7 @@ package br.com.rocha.dan.task.job.writer;
 
 import java.util.List;
 
-import br.com.rocha.dan.task.job.document.OrderDocument;
+import br.com.rocha.dan.task.job.document.TaskDocument;
 import org.apache.log4j.Logger;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;
@@ -12,19 +12,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 @StepScope
-public class FraudScreeningWriter implements ItemWriter<OrderDocument> {
+public class TaskWriter implements ItemWriter<TaskDocument> {
 
-	private static final Logger log = Logger.getLogger(FraudScreeningWriter.class);
+	private static final Logger log = Logger.getLogger(TaskWriter.class);
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
 	@Override
-	public void write(List<? extends OrderDocument> items) throws Exception {
+	public void write(List<? extends TaskDocument> items) throws Exception {
 		try {
 			log.info("Start Writer" + items.size());
 
-			for (OrderDocument document : items) {
+			for (TaskDocument document : items) {
 				mongoTemplate.save(document);
 			}
 

@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.rocha.dan.task.job.document.OrderDocument;
-import br.com.rocha.dan.task.job.reader.FraudScreeningReader;
-import br.com.rocha.dan.task.job.writer.FraudScreeningWriter;
+import br.com.rocha.dan.task.job.document.TaskDocument;
+import br.com.rocha.dan.task.job.reader.TaskReader;
+import br.com.rocha.dan.task.job.writer.TaskWriter;
 
 @Configuration
 public class BatchConfiguration {
@@ -29,10 +29,10 @@ public class BatchConfiguration {
 	private StepBuilderFactory stepBuilderFactory;
 
 	@Autowired
-	private FraudScreeningReader dataContingencyReader;
+	private TaskReader dataContingencyReader;
 
 	@Autowired
-	private FraudScreeningWriter writer;
+	private TaskWriter writer;
 	
 	@Value("${fraud.screening.batch.chunck}")
 	private int totalChunk;
@@ -51,7 +51,7 @@ public class BatchConfiguration {
 	@Qualifier("stepPullUpdate")
 	public Step step1() throws Exception {
 		return stepBuilderFactory.get("step1")
-				.<OrderDocument, OrderDocument>chunk(totalChunk)
+				.<TaskDocument, TaskDocument>chunk(totalChunk)
 				.reader(dataContingencyReader.reader())
 				.writer(writer)
 				.build();
