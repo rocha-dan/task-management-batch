@@ -56,7 +56,7 @@ public class TaskJobSchedule {
 	@Value("${task.batch.chunck}")
 	private int totalChunk;
 	
-	@Scheduled(cron = "${cron}")
+	@Scheduled( cron = "${task.cron}")
 	public void run() throws Exception {
 				
 		try {
